@@ -1,0 +1,53 @@
+name: iso_build_lts
+on:
+  workflow_dispatch:
+#  schedule:
+#    - cron:  '30 6 1 * *'
+
+jobs:
+  release:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        ##### EDIT ME #####
+        EDITION: [gnome, xfce, kde]
+        KERNEL: [linux61,linux66]
+        BRANCH: [stable]
+        SCOPE: [minimal]
+        ###################
+    steps:
+      - uses: styfle/cancel-workflow-action@0.10.1
+        with:
+          access_token: ${{ github.token }}
+      - id: image-build
+        uses: manjaro/manjaro-iso-action@main
+        with:
+          edition: ${{ matrix.edition }}
+          branch: ${{ matrix.branch }}
+          scope: ${{ matrix.scope }}
+          version: "24.0"
+          kernel: ${{ matrix.kernel }}
+          code-name: "Wynsdey"
+          office-chooser: "true"
+          gpg-secret-key-base64: ${{ secrets.CI_PRIV_KEY }}
+          gpg-passphrase: ${{ secrets.CI_GPG_PASSPHRASE }}
+          s3-cfg: ${{ secrets.S3_CFG }}
+          sf-project: manjarolinux
+          sf-user: ${{ secrets.SF_USER_NAME }}
+          sf-key: ${{ secrets.SF_PRIV_SSHKEY }}
+      - name: rollback cdn77 upload
+        if: ${{ failure() || cancelled() }}
+        run: |
+          sshpass -p "${{ secrets.CDN_PWD }}" rsync --delete -vaP --stats \
+              -e ssh $(mktemp) ${{ secrets.CDN_USER }}@${{ secrets.CDN_HOST }}:/www/${{ env.edition }}/${{ env.version }}
+      - name: rollback sourceforge upload
+        if: ${{ failure() || cancelled() }}
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          rsync --delete -vaP --stats \
+              -e ssh $(mktemp) ${{ secrets.SF_USER_NAME }}@frs.sourceforge.net:/home/frs/project/${{ env.sf-project }}/${{ env.edition }}/${{ env.version }}
+      - name: rollback cdn77 upload
+        if: ${{ failure() || cancelled() }}
+        run: |
+          s3cmd rm -r -f s3://s3downloadseu/${{ env.edition }}/${{ env.version }}
