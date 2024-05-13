@@ -11,7 +11,7 @@ jobs:
       matrix:
         ##### EDIT ME #####
         EDITION: [gnome, xfce, kde]
-        KERNEL: [linux68]
+        KERNEL: [linux69]
         BRANCH: [stable]
         SCOPE: [minimal,full]
         ###################
