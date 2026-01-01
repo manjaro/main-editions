@@ -25,7 +25,7 @@ jobs:
           edition: ${{ matrix.edition }}
           branch: ${{ matrix.branch }}
           scope: ${{ matrix.scope }}
-          version: "25.1-rc2"
+          version: "26.0-rc3"
           kernel: ${{ matrix.kernel }}
           code-name: "Anh-Linh"
           office-chooser: "true"
