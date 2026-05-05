@@ -11,7 +11,7 @@ jobs:
       matrix:
         ##### EDIT ME #####
         EDITION: [gnome, xfce, kde]
-        KERNEL: [linux612,linux66]
+        KERNEL: [linux618,linux612]
         BRANCH: [stable]
         SCOPE: [minimal]
         ###################
@@ -25,9 +25,9 @@ jobs:
           edition: ${{ matrix.edition }}
           branch: ${{ matrix.branch }}
           scope: ${{ matrix.scope }}
-          version: "26.0.4"
+          version: "26.1.0-pre"
           kernel: ${{ matrix.kernel }}
-          code-name: "Anh-Linh"
+          code-name: "Bian-May"
           office-chooser: "true"
           gpg-secret-key-base64: ${{ secrets.CI_PRIV_KEY }}
           gpg-passphrase: ${{ secrets.CI_GPG_PASSPHRASE }}
