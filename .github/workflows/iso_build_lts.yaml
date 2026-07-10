@@ -25,9 +25,10 @@ jobs:
           edition: ${{ matrix.edition }}
           branch: ${{ matrix.branch }}
           scope: ${{ matrix.scope }}
-          version: "26.1.0-pre"
+          version: "26.1.0-rc1"
           kernel: ${{ matrix.kernel }}
           code-name: "Bian-May"
+          build-mirror: "https://mirrors.manjaro.org/repo"
           office-chooser: "true"
           gpg-secret-key-base64: ${{ secrets.CI_PRIV_KEY }}
           gpg-passphrase: ${{ secrets.CI_GPG_PASSPHRASE }}
