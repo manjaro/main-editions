@@ -25,7 +25,7 @@ jobs:
           edition: ${{ matrix.edition }}
           branch: ${{ matrix.branch }}
           scope: ${{ matrix.scope }}
-          version: "26.1.0-rc1"
+          version: "26.1.0-rc2"
           kernel: ${{ matrix.kernel }}
           code-name: "Bian-May"
           build-mirror: "https://mirrors.manjaro.org/repo"
