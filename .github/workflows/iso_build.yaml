@@ -11,7 +11,7 @@ jobs:
       matrix:
         ##### EDIT ME #####
         EDITION: [generic-oem-gnome, generic-oem-kde, gnome, xfce, kde]
-        KERNEL: [linux71]
+        KERNEL: [linux72]
         BRANCH: [stable]
         SCOPE: [minimal,full]
         ###################
