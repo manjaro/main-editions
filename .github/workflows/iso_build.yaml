@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         ##### EDIT ME #####
-        EDITION: [generic-oem-gnome, generic-oem-kde, gnome, xfce, kde]
+        EDITION: [gnome, xfce, kde]
         KERNEL: [linux72]
         BRANCH: [stable]
         SCOPE: [minimal,full]
