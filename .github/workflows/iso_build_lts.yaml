@@ -13,7 +13,7 @@ jobs:
         EDITION: [gnome, xfce, kde]
         KERNEL: [linux618]
         BRANCH: [stable]
-        SCOPE: [minimal]
+        SCOPE: [minimal,full]
         ###################
     steps:
       - uses: styfle/cancel-workflow-action@0.10.1
